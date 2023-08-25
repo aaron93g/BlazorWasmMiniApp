@@ -1,0 +1,38 @@
+﻿<h3>Address Info</h3>
+
+<EditForm Model="address" OnValidSubmit="ValidAddressSubmission">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="address.Street" class="form-control" placeholder="Street Address" />
+    <InputText @bind-Value="address.City" class="form-control" placeholder="City Address" />
+    <InputText @bind-Value="address.State" class="form-control" placeholder="State Address" />
+    <InputText @bind-Value="address.ZipCode" class="form-control" placeholder="Zip Code Address" />
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+<h3>Address List</h3>
+
+<ul>
+    @foreach (AddressModel fullAddress in addresses)
+    {
+        <li>
+            @fullAddress.Street, @fullAddress.City, @fullAddress.State @fullAddress.ZipCode
+        </li>
+    }
+</ul>
+
+
+@code {
+
+    private AddressModel address = new();
+
+    private List<AddressModel> addresses = new();
+
+    private void ValidAddressSubmission()
+    {
+        addresses.Add(address);
+        address = new();
+    }
+}
